@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("chielvis1/test")
+       app = docker.build("chielvis1/flask")
     }
 
     stage('Test image') {
