@@ -9,7 +9,7 @@ pipeline {
           }
         }
 
-        stage('error') {
+        stage('GitHub') {
           steps {
             echo 'Checking out branch'
           }
@@ -28,7 +28,7 @@ pipeline {
 
         stage('Shell') {
           steps {
-            sh 'docker build -t chielvis1/flask .'
+            sh 'docker build -t ${image_id} .'
           }
         }
 
