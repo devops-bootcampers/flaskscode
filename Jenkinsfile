@@ -1,22 +1,13 @@
 pipeline {
   agent any
   stages {
-    stage('Clone Repo') {
+    stage('Clone Repo from GitHub') {
       parallel {
         stage('Clone Repo') {
           steps {
             git(url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master', poll: true)
           }
         }
-
-        stage('GitHub') {
-          steps {
-            echo 'Checking out branch'
-          }
-        }
-
-      }
-    }
 
     stage('Building image') {
       steps {
@@ -53,9 +44,3 @@ pipeline {
     }
 
   }
-  environment {
-    registry = 'https://registry.hub.docker.com'
-    registryCredential = 'dockerhub'
-    image_id = 'chielvis1/flask'
-  }
-}
