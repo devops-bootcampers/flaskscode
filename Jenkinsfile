@@ -10,7 +10,7 @@ pipeline {
     stage('Building image') {
       steps {
         script {
-          dockerImage = docker.build imagename
+          app = docker.build("chielvis1/flask")
         }
 
       }
@@ -19,10 +19,8 @@ pipeline {
     stage('Deploy Image') {
       steps {
         script {
-          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("$BUILD_NUMBER")
-            dockerImage.push('latest')
-
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            app.push("${env.BUILD_NUMBER}")
           }
         }
 
