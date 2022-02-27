@@ -24,6 +24,12 @@ pipeline {
           }
         }
 
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            app.push('latest')
+          }
+        }
+
       }
     }
 
@@ -39,6 +45,6 @@ pipeline {
   environment {
     imagename = 'chielvis/flask'
     registryCredential = 'dockerhub'
-    dockerImage = ''
+    app = ''
   }
 }
