@@ -1,35 +1,41 @@
-    stage('Building image') {
+pipeline {
+  environment {
+    imagename = "chielvis/flask"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
+    stage('Cloning Git') {
       steps {
+        git([url: '', branch: 'master'])
+
+      }
+    }
+    stage('Building image') {
+      steps{
         script {
           dockerImage = docker.build imagename
         }
-
       }
     }
-
-    stage('Test Image') {
-      steps {
-        echo 'Testing Image'
-      }
-    }
-
     stage('Deploy Image') {
-      steps {
+      steps{
         script {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push("$BUILD_NUMBER")
-            dockerImage.push('latest')
+             dockerImage.push('latest')
 
           }
         }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $imagename:$BUILD_NUMBER"
+         sh "docker rmi $imagename:latest"
 
       }
     }
-
-    stage('Update ArgoCD Manifest') {
-      steps {
-        echo 'Update ArgoCD Manifest'
-      }
-    }
-
   }
+}
