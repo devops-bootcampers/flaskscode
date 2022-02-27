@@ -10,7 +10,7 @@ pipeline {
     stage('Building image') {
       steps {
         script {
-          app = docker.build("chielvis1/flask")
+          app = docker.build imagename
         }
 
       }
@@ -45,8 +45,8 @@ pipeline {
 
   }
   environment {
-    imagename = "chielvis1/flask"
-    registryCredential = "dockerhub"
-    registry = "https://registry.hub.docker.com"
+    imagename = 'chielvis1/flask'
+    registryCredential = 'dockerhub'
+    registry = 'https://registry.hub.docker.com'
   }
 }
