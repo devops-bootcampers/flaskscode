@@ -2,8 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Clone Repo') {
-      steps {
-        git(url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master', poll: true)
+      parallel {
+        stage('Clone Repo') {
+          steps {
+            git(url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master', poll: true)
+          }
+        }
+
+        stage('') {
+          steps {
+            echo 'Checking out branch'
+          }
+        }
+
       }
     }
 
