@@ -53,7 +53,7 @@ pipeline {
 
   }
   environment {
-    imagename = 'chielvis/flask'
+    imagename = 'chielvis1/flask'
     registryCredential = 'dockerhub'
     app = ''
   }
