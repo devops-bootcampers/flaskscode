@@ -9,7 +9,7 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('error') {
           steps {
             echo 'Checking out branch'
           }
@@ -19,8 +19,19 @@ pipeline {
     }
 
     stage('Build Image') {
-      steps {
-        echo 'Building Image'
+      parallel {
+        stage('Build Image') {
+          steps {
+            echo 'Building Image'
+          }
+        }
+
+        stage('Shell') {
+          steps {
+            sh 'docker build -t chielvis1/flask .'
+          }
+        }
+
       }
     }
 
@@ -42,5 +53,10 @@ pipeline {
       }
     }
 
+  }
+  environment {
+    registry = 'https://registry.hub.docker.com'
+    egistryCredential = 'dockerhub'
+    image_id = 'chielvis1/flask'
   }
 }
