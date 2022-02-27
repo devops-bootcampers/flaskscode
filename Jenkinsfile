@@ -37,7 +37,7 @@ pipeline {
       steps {
         echo 'Triggering another job to update the Kubernetes/ArgoCD manifest file'
         script {
-          build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+          build job: 'flaskmanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
         }
 
       }
