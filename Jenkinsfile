@@ -51,8 +51,8 @@ pipeline {
 
         stage('Tagging and Pushing') {
           steps {
-            sh '''echo ${registryCredential}
-docker tag ${image_id} ${image_id}:${BUILD_NUMBER}'''
+            sh '''docker tag ${image_id} ${image_id}:${BUILD_NUMBER}
+docker push'''
           }
         }
 
