@@ -44,6 +44,10 @@ pipeline {
     stage('Image Push') {
       steps {
         echo 'Pushing Image'
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
+        }
+
       }
     }
 
