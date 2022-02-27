@@ -19,40 +19,27 @@ pipeline {
     }
 
     stage('Building image') {
-      steps{
+      steps {
         script {
           dockerImage = docker.build imagename
         }
+
       }
     }
+
     stage('Test Image') {
       steps {
         echo 'Testing Image'
       }
     }
+
     stage('Deploy Image') {
-      steps{
+      steps {
         script {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push("$BUILD_NUMBER")
-             dockerImage.push('latest')
+            dockerImage.push('latest')
 
-          }
-        }
-      }
-    }
-    stage('Image Push') {
-      parallel {
-        stage('Image Push') {
-          steps {
-            echo 'Pushing Image'
-          }
-        }
-
-        stage('Tagging and Pushing') {
-          steps {
-            sh '''docker tag ${image_id} ${image_id}:${BUILD_NUMBER}
-docker push ${image_id}:${BUILD_NUMBER}'''
           }
         }
 
