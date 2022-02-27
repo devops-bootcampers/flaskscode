@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Clone Repo') {
       steps {
-        echo 'Clone'
-        echo 'Cloning Repo'
+        git(url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master', poll: true)
       }
     }
 
