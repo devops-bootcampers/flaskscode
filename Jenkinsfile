@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git([url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master'])
+        git([url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master', credentialsId: 'github'])
 
       }
     }
