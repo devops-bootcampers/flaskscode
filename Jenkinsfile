@@ -42,10 +42,18 @@ pipeline {
     }
 
     stage('Image Push') {
-      steps {
-        echo 'Pushing Image'
-        script {
-          'docker tag ${image_id}:{BUILD_NUMBER}'
+      parallel {
+        stage('Image Push') {
+          steps {
+            echo 'Pushing Image'
+          }
+        }
+
+        stage('Tagging and Pushing') {
+          steps {
+            sh '''\'docker tag ${image_id}:{BUILD_NUMBER}\'
+'''
+          }
         }
 
       }
