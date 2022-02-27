@@ -41,6 +41,16 @@ pipeline {
       }
     }
 
+    stage('Trigger Update Manifest') {
+      steps {
+        echo 'Triggering another job to update the Kubernetes/ArgoCD manifest file'
+        script {
+          build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+        }
+
+      }
+    }
+
   }
   environment {
     imagename = 'chielvis/flask'
