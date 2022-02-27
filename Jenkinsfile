@@ -52,7 +52,7 @@ pipeline {
         stage('Tagging and Pushing') {
           steps {
             sh '''docker tag ${image_id} ${image_id}:${BUILD_NUMBER}
-docker push'''
+docker push ${image_id}:${BUILD_NUMBER}'''
           }
         }
 
