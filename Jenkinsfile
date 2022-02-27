@@ -1,14 +1,3 @@
-pipeline {
-  agent any
-  stages {
-    stage('Clone Repo from GitHub') {
-      parallel {
-        stage('Clone Repo') {
-          steps {
-            git(url: 'https://github.com/devops-bootcampers/kubernetescode.git', branch: 'master', poll: true)
-          }
-        }
-
     stage('Building image') {
       steps {
         script {
