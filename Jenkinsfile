@@ -51,7 +51,8 @@ pipeline {
 
         stage('Tagging and Pushing') {
           steps {
-            sh 'docker tag ${image_id} ${image_id}:${BUILD_NUMBER}'
+            sh '''echo ${registryCredential}
+docker tag ${image_id} ${image_id}:${BUILD_NUMBER}'''
           }
         }
 
@@ -67,7 +68,7 @@ pipeline {
   }
   environment {
     registry = 'https://registry.hub.docker.com'
-    egistryCredential = 'dockerhub'
+    registryCredential = 'dockerhub'
     image_id = 'chielvis1/flask'
   }
 }
