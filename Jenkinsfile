@@ -18,29 +18,29 @@ pipeline {
       }
     }
 
-    stage('Build Image') {
-      parallel {
-        stage('Build Image') {
-          steps {
-            echo 'Building Image'
-          }
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build imagename
         }
-
-        stage('Shell') {
-          steps {
-            sh 'docker build -t ${image_id} .'
-          }
-        }
-
       }
     }
-
     stage('Test Image') {
       steps {
         echo 'Testing Image'
       }
     }
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push("$BUILD_NUMBER")
+             dockerImage.push('latest')
 
+          }
+        }
+      }
+    }
     stage('Image Push') {
       parallel {
         stage('Image Push') {
