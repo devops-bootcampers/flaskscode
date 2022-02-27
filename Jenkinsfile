@@ -45,7 +45,12 @@ pipeline {
       steps {
         echo 'Pushing Image'
         script {
-          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
+          stage('Push image') {
+
+            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+              app.push("${env.BUILD_NUMBER}")
+            }
+          }
         }
 
       }
