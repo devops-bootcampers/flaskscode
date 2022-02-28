@@ -1,16 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Cloning Git') {
-      steps {
-        git(url: 'https://github.com/devops-bootcampers/flaskmanifest.git', branch: 'master')
-      }
-    }
-
-    stage('Building image') {
-      steps {
-        sh 'docker build -t ${imagename} .'
-      }
+    stage('Build image') {
+  
+       app = docker.build("chielvis1/flask")
     }
 
     stage('Deploy Image') {
@@ -45,5 +38,6 @@ pipeline {
     imagename = 'chielvis1/flask'
     registryCredential = 'dockerhub'
     registry = 'https://registry.hub.docker.com'
+    app = ''
   }
 }
