@@ -10,7 +10,7 @@ pipeline {
     stage('Building image') {
       steps {
         script {
-          app = docker.build imagename
+          app = docker.build('chielvis1/flask1')
         }
 
       }
