@@ -10,6 +10,20 @@ pipeline {
       }
     }
 
+    stage('Image Build') {
+      steps {
+        echo 'Building Image'
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push('latest')
+
+          }
+        }
+
+      }
+    }
+
   }
   environment {
     imagename = 'chielvis1/flask'
