@@ -9,10 +9,7 @@ pipeline {
 
     stage('Building image') {
       steps {
-        script {
-          "app = docker build -t ${imagename} ."
-        }
-
+        sh 'docker build -t ${imagename} .'
       }
     }
 
