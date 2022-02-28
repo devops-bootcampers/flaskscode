@@ -4,7 +4,7 @@ pipeline {
     stage('Building image') {
       steps {
         script {
-          app = docker.build("chielvis1/flask")
+          app = docker.build imagename
         }
 
       }
@@ -12,17 +12,6 @@ pipeline {
 
   }
   
-      stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            app.push("$BUILD_NUMBER")
-             app.push('latest')
-
-          }
-        }
-      }
-    }
   
   environment {
     imagename = 'chielvis1/flask'
