@@ -1,10 +1,8 @@
-FROM python:3.8-slim-buster
-
+FROM python:3.6
+LABEL maintainer="lorenz.vanthillo@gmail.com"
+COPY . /app
 WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
-COPY . .
-
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+RUN pip install -r requirements.txt
+EXPOSE 8080
+ENTRYPOINT ["python"]
+CMD ["app/app.py"]
