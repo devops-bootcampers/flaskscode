@@ -1,9 +1,12 @@
 pipeline {
   agent any
   stages {
-    stage('Build image') {
-  
-       app = docker.build("chielvis1/flask")
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build imagename
+        }
+      }
     }
 
     stage('Deploy Image') {
