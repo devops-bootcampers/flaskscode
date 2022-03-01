@@ -26,7 +26,7 @@ pipeline {
     stage('Update ArgoCD Kube Minifest') {
       steps {
         script {
-          build job: 'updatemanifest', parameters: [string(name: 'DOCKER_TAG', value: env.BUILD_NUMBER)]
+          build job: "flaskmanifest", parameters: [string(name: 'DOCKER_TAG', value: env.BUILD_NUMBER)]
         }
 
       }
