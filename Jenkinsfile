@@ -2,23 +2,9 @@ pipeline {
   agent any
   stages {
     stage('Building image') {
-      parallel {
-        stage('Building image') {
-          steps {
-            script {
-              app = docker.build imagename
-            }
-
-          }
-        }
-
-        stage('poll scm') {
-          steps {
-            script {
-              properties([pipelineTriggers([pollSCM('* * * * *')])])
-            }
-
-          }
+      steps {
+        script {
+          app = docker.build imagename
         }
 
       }
@@ -41,6 +27,15 @@ pipeline {
       steps {
         script {
           build job: "flaskmanifest/master", parameters: [string(name: 'DOCKER_TAG', value: env.BUILD_NUMBER)]
+        }
+
+      }
+    }
+
+    stage('Poll SCM') {
+      steps {
+        script {
+          properties([pipelineTriggers([pollSCM('* * * * *')])])
         }
 
       }
