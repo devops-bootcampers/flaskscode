@@ -32,15 +32,6 @@ pipeline {
       }
     }
 
-    stage('Poll SCM') {
-      steps {
-        script {
-          properties([pipelineTriggers([pollSCM('* * * * *')])])
-        }
-
-      }
-    }
-
   }
   environment {
     imagename = 'chielvis1/flask'
