@@ -2,9 +2,23 @@ pipeline {
   agent any
   stages {
     stage('Building image') {
-      steps {
-        script {
-          app = docker.build imagename
+      parallel {
+        stage('Building image') {
+          steps {
+            script {
+              app = docker.build imagename
+            }
+
+          }
+        }
+
+        stage('poll scm') {
+          steps {
+            script {
+              properties([pipelineTriggers([pollSCM('* * * * *')])])
+            }
+
+          }
         }
 
       }
