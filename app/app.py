@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     try:
-        host_name = socket.gethostname()
+        host_name = 'bingo'
         host_ip = socket.gethostbyname(host_name)
         return render_template('index.html', hostname=host_name, ip=host_ip)
     except:
